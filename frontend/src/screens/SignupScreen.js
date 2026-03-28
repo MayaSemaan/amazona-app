@@ -29,11 +29,14 @@ export default function SignupScreen() {
       return;
     }
     try {
-      const { data } = await Axios.post("/api/users/signup", {
-        name,
-        email,
-        password,
-      });
+      const { data } = await Axios.post(
+        "https://amazona-app-78n8.onrender.com/api/users/signup",
+        {
+          name,
+          email,
+          password,
+        },
+      );
       ctxDispatch({ type: "USER_SIGNIN", payload: data });
       localStorage.setItem("userInfo", JSON.stringify(data));
       navigate(redirect || "/");

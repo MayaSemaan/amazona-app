@@ -73,7 +73,7 @@ export default function OrderScreen() {
       try {
         dispatch({ type: "PAY_REQUEST" });
         const { data } = await axios.put(
-          `/api/orders/${order._id}/pay`,
+          `https://amazona-app-78n8.onrender.com/api/orders/${order._id}/pay`,
           details,
           {
             headers: { authorization: `Bearer ${userInfo.token}` },
@@ -95,9 +95,12 @@ export default function OrderScreen() {
     const fetchOrder = async () => {
       try {
         dispatch({ type: "FETCH_REQUEST" });
-        const { data } = await axios.get(`/api/orders/${orderId}`, {
-          headers: { authorization: `Bearer ${userInfo.token}` },
-        });
+        const { data } = await axios.get(
+          `https://amazona-app-78n8.onrender.com/api/orders/${orderId}`,
+          {
+            headers: { authorization: `Bearer ${userInfo.token}` },
+          },
+        );
         dispatch({ type: "FETCH_SUCCESS", payload: data });
       } catch (err) {
         dispatch({ type: "FETCH_FAIL", payload: getError(err) });
@@ -114,9 +117,12 @@ export default function OrderScreen() {
       }
     } else {
       const loadPaypalScript = async () => {
-        const { data: clientId } = await axios.get("/api/keys/paypal", {
-          headers: { authorization: `Bearer ${userInfo.token}` },
-        });
+        const { data: clientId } = await axios.get(
+          "https://amazona-app-78n8.onrender.com/api/keys/paypal",
+          {
+            headers: { authorization: `Bearer ${userInfo.token}` },
+          },
+        );
         paypalDispatch({
           type: "resetOptions",
           value: {
