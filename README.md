@@ -51,8 +51,8 @@
 13. Create Loading and Message Component
     1. create loading component
     2. use spinner component
-    3. craete message component
-    4. create utils.js to define getError fuction
+    3. create message component
+    4. create utils.js to define getError function
 14. Create React Context For Add Item To Cart
     1. Create React Context
     2. define reducer
@@ -114,7 +114,7 @@
 29. Create Order Screen
     1. create backend api for order/:id
     2. fetch order api in frontend
-    3. show order information in 2 cloumns
+    3. show order information in 2 columns
 30. Pay Order By PayPal
     1. generate paypal client id
     2. create api to return client id
@@ -134,11 +134,3 @@
     2. show user information
     3. create user update api
     4. update user info
-33. Publish To Heroku
-    1. create and config node project
-    2. serve build folder in frontend folder
-    3. Create heroku account
-    4. connect it to github
-    5. Create mongodb atlas database
-    6. Set database connection in heroku env variables
-    7. Commit and push
