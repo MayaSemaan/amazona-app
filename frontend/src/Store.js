@@ -18,6 +18,12 @@ const initialState = {
       ? JSON.parse(localStorage.getItem("cartItems"))
       : [],
   },
+
+  wishlist: {
+    wishlistItems: localStorage.getItem("wishlistItems")
+      ? JSON.parse(localStorage.getItem("wishlistItems"))
+      : [],
+  },
 };
 function reducer(state, action) {
   switch (action.type) {
@@ -47,6 +53,12 @@ function reducer(state, action) {
     case "USER_SIGNIN":
       return { ...state, userInfo: action.payload };
     case "USER_SIGNOUT":
+      localStorage.removeItem("userInfo");
+      localStorage.removeItem("cartItems");
+      localStorage.removeItem("wishlistItems");
+      localStorage.removeItem("shippingAddress");
+      localStorage.removeItem("paymentMethod");
+
       return {
         ...state,
         userInfo: null,
@@ -54,6 +66,9 @@ function reducer(state, action) {
           cartItems: [],
           shippingAddress: {},
           paymentMethod: "",
+        },
+        wishlist: {
+          wishlistItems: [],
         },
       };
     case "SAVE_SHIPPING_ADDRESS":
@@ -69,6 +84,39 @@ function reducer(state, action) {
         ...state,
         cart: { ...state.cart, paymentMethod: action.payload },
       };
+
+    case "WISHLIST_ADD_ITEM": {
+      const newItem = action.payload;
+
+      const existItem = state.wishlist.wishlistItems.find(
+        (item) => item._id === newItem._id,
+      );
+
+      const wishlistItems = existItem
+        ? state.wishlist.wishlistItems
+        : [...state.wishlist.wishlistItems, newItem];
+
+      localStorage.setItem("wishlistItems", JSON.stringify(wishlistItems));
+
+      return {
+        ...state,
+        wishlist: { ...state.wishlist, wishlistItems },
+      };
+    }
+
+    case "WISHLIST_REMOVE_ITEM": {
+      const wishlistItems = state.wishlist.wishlistItems.filter(
+        (item) => item._id !== action.payload._id,
+      );
+
+      localStorage.setItem("wishlistItems", JSON.stringify(wishlistItems));
+
+      return {
+        ...state,
+        wishlist: { ...state.wishlist, wishlistItems },
+      };
+    }
+
     default:
       return state;
   }

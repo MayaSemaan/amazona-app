@@ -25,10 +25,11 @@ import { getError } from "./utils";
 import axios from "axios";
 import SearchBox from "./components/SearchBox";
 import SearchScreen from "./screens/SearchScreen";
+import WishlistScreen from "./screens/WishlistScreen";
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
-  const { cart, userInfo } = state;
+  const { cart, userInfo, wishlist } = state;
 
   const signoutHandler = () => {
     ctxDispatch({ type: "USER_SIGNOUT" });
@@ -80,6 +81,14 @@ function App() {
               <Navbar.Collapse id="basic-navbar-nav">
                 <SearchBox />
                 <Nav className="me-auto  w-100  justify-content-end">
+                  <Link to="/wishlist" className="nav-link">
+                    <i className="far fa-heart"></i>
+                    {wishlist.wishlistItems.length > 0 && (
+                      <Badge pill bg="primary">
+                        {wishlist.wishlistItems.length}
+                      </Badge>
+                    )}
+                  </Link>
                   <Link to="/cart" className="nav-link">
                     Cart
                     {cart.cartItems.length > 0 && (
@@ -163,6 +172,7 @@ function App() {
               ></Route>
               <Route path="/payment" element={<PaymentMethodScreen />}></Route>
               <Route path="/" element={<HomeScreen />} />
+              <Route path="/wishlist" element={<WishlistScreen />}></Route>
             </Routes>
           </Container>
         </main>

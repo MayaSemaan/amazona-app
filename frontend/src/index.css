@@ -26,13 +26,14 @@ main {
 }
 .btn-primary:focus,
 .btn-outline-primary:focus {
-  background-color: #dddddd !important;
-  border-color: #dcdcdc !important;
-  box-shadow: none !important;
+  background-color: #dddddd;
+  border-color: #dcdcdc;
+  color: #333333;
+  box-shadow: none;
 }
 .btn-primary:active,
 .btn-outline-primary:active {
-  background-color: #0d6efd !important; /* blue flash */
+  background-color: #0d6efd !important;
   border-color: #0d6efd !important;
   color: white !important;
   transition: none;

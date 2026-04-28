@@ -53,7 +53,13 @@ function ProductScreen() {
   }, [slug]);
 
   const { state, dispatch: ctxDispatch } = useContext(Store);
-  const { cart } = state;
+  const { cart, wishlist } = state;
+
+  const cartItem = cart.cartItems.find((x) => x._id === product._id);
+
+  const remainingStock =
+    product.countInStock - (cartItem ? cartItem.quantity : 0);
+
   const addToCartHandler = async () => {
     const existItem = cart.cartItems.find((x) => x._id === product._id);
     const quantity = existItem ? existItem.quantity + 1 : 1;
@@ -70,6 +76,27 @@ function ProductScreen() {
     });
     navigate("/cart");
   };
+
+  const addToWishlistHandler = () => {
+    const existItem = wishlist.wishlistItems.find((x) => x._id === product._id);
+
+    if (existItem) {
+      ctxDispatch({
+        type: "WISHLIST_REMOVE_ITEM",
+        payload: product,
+      });
+    } else {
+      ctxDispatch({
+        type: "WISHLIST_ADD_ITEM",
+        payload: product,
+      });
+    }
+  };
+
+  const isInWishlist = wishlist.wishlistItems.find(
+    (x) => x._id === product._id,
+  );
+
   return loading ? (
     <LoadingBox />
   ) : error ? (
@@ -119,24 +146,42 @@ function ProductScreen() {
                   <Row>
                     <Col>Status:</Col>
                     <Col>
-                      {product.countInStock > 0 ? (
-                        <Badge bg="success">In Stock</Badge>
+                      {remainingStock > 0 ? (
+                        <Badge bg="primary">In Stock</Badge>
                       ) : (
-                        <Badge bg="danger">Unavailable</Badge>
+                        <Badge bg="secondary">Unavailable</Badge>
                       )}
                     </Col>
                   </Row>
                 </ListGroup.Item>
 
-                {product.countInStock > 0 && (
-                  <ListGroup.Item>
-                    <div className="d-grid">
+                <ListGroup.Item>
+                  <div className="d-grid gap-2">
+                    {remainingStock <= 0 ? (
+                      <Button variant="light" disabled>
+                        Out of Stock
+                      </Button>
+                    ) : (
                       <Button onClick={addToCartHandler} variant="primary">
                         Add to Cart
                       </Button>
-                    </div>
-                  </ListGroup.Item>
-                )}
+                    )}
+
+                    <Button
+                      onClick={addToWishlistHandler}
+                      className="w-100"
+                      variant="light"
+                    >
+                      <i
+                        className={
+                          isInWishlist
+                            ? "fas fa-heart text-danger"
+                            : "far fa-heart"
+                        }
+                      ></i>
+                    </Button>
+                  </div>
+                </ListGroup.Item>
               </ListGroup>
             </Card.Body>
           </Card>
