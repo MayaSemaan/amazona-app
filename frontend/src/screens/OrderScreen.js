@@ -161,7 +161,7 @@ export default function OrderScreen() {
                   Delivered at {order.deliveredAt}
                 </MessageBox>
               ) : (
-                <MessageBox variant="danger">Not Delivered</MessageBox>
+                <MessageBox variant="primary">Not Delivered</MessageBox>
               )}
             </Card.Body>
           </Card>
@@ -176,7 +176,7 @@ export default function OrderScreen() {
                   Paid at {order.paidAt}
                 </MessageBox>
               ) : (
-                <MessageBox variant="danger">Not Paid</MessageBox>
+                <MessageBox variant="primary">Not Paid</MessageBox>
               )}
             </Card.Body>
           </Card>

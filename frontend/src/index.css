@@ -14,9 +14,30 @@ main {
 }
 .btn-primary,
 .btn-outline-primary {
-  background-color: #f0c040;
-  color: #000000;
+  background-color: #dddddd;
+  color: #333333;
+  border-color: #dcdcdc;
 }
+
+.btn-primary:hover,
+.btn-outline-primary:hover {
+  background-color: #cccccc;
+  border-color: #c8c8c8;
+}
+.btn-primary:focus,
+.btn-outline-primary:focus {
+  background-color: #dddddd !important;
+  border-color: #dcdcdc !important;
+  box-shadow: none !important;
+}
+.btn-primary:active,
+.btn-outline-primary:active {
+  background-color: #0d6efd !important; /* blue flash */
+  border-color: #0d6efd !important;
+  color: white !important;
+  transition: none;
+}
+
 .products {
   display: flex;
   flex-wrap: wrap;
@@ -24,7 +45,7 @@ main {
 }
 
 .rating span {
-  color: #ffc000;
+  color: #404040;
 }
 
 .product {
@@ -53,8 +74,8 @@ main {
   color: #a0a0a0;
 }
 .checkout-steps > div.active {
-  border-bottom: 0.2rem solid #f08000;
-  color: #f08000;
+  border-bottom: 0.2rem solid #3d8bfd;
+  color: #0d6efd;
 }
 
 /* sidebar */
